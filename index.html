@@ -14,11 +14,22 @@
       }
       table {
         text-align: center;
-        font-size: 48px;
+        font-size: 40px;
+      }
+      tr:first-child td {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
       }
       td {
+        padding: 5px;
         width: 36px;
         line-height: 40px;
+      }
+      td:first-child {
+        border-right: 1px solid rgba(255, 255, 255, 0.3);
+      }
+      a {
+        color: #00ff00;
+        text-decoration: none;
       }
     </style>
   </head>
@@ -26,7 +37,7 @@
     <table>
       <tr>
         <td>
-          <img src="assets/earth-icon.svg" width="36px" height="36px" alt="O" />
+          <img src="assets/earth-icon.svg" width="30px" height="30px" alt="O" />
         </td>
         <td>G</td>
       </tr>
@@ -36,6 +47,52 @@
       </tr>
     </table>
 
-    <!-- <h1>What is Open GIS?</h1> -->
+    <h1>What is Open GIS?</h1>
+
+    <p>
+      Open GIS is a free, Open-Source Geographic Information System (GIS)
+      platform.
+    </p>
+
+    <p>
+      With no technical knowledge required, users can create, edit, and share
+      <em>Meaningful</em> Maps.
+    </p>
+
+    <p>
+      You can use the Open GIS Editor at
+      <a href="http://www.ogis.app"> ogis.app</a>.
+    </p>
+
+    <h2>The Editor</h2>
+
+    <p>The Editor runs in your web browser and allows you to:</p>
+    <ul>
+      <li>
+        <b>Import</b> data from various formats (GPX, KML and
+        <a href="https://geojson.org/">GeoJSON</a>)
+      </li>
+      <li>
+        Create <b>Overlays</b> (Markers, Line & Shapes) using the intuitive
+        interface
+      </li>
+      <li>Add meaning to your Maps by styling Overlays using <b>Types</b></li>
+      <li>
+        <b>Export</b> your Maps to save them offline, including your custom
+        Types.
+      </li>
+    </ul>
+
+    <p>
+      The Editor is built with
+      <a href="https://github.com/OpenGIS/Waymark-JS">Waymark JS</a>, an Open
+      GIS project for creating and editing Maps and uses
+      <a href="https://www.openstreetmap.org/">OpenStreetMap</a> as the Basemap.
+    </p>
+
+    <p>
+      No account or API key is required to use the Editor and Maps are stored in
+      your browser's local storage.
+    </p>
   </body>
 </html>
