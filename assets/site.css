@@ -1,6 +1,8 @@
 body {
+  padding: 10px;
   font-family: monospace;
   color: #fff;
+  font-size: 110%;
   background-color: #002400;
 }
 table {
@@ -18,7 +20,7 @@ td {
 td:first-child {
   border-right: 1px solid rgba(255, 255, 255, 0.3);
 }
-p img {
+img.right {
   float: right;
   padding: 0 0 15px 15px;
 }
@@ -28,16 +30,11 @@ a {
 }
 
 /* Waymark JS Example */
-
-#waymark-data {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  z-index: 2000;
+#waymark-map {
+  margin: 15px;
+  float: right;
   width: 320px;
-  height: 160px;
-  overflow: scroll;
-  pointer-events: auto !important;
+  margin-bottom: 120px;
 }
 
 /* Hover  */

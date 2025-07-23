@@ -3,7 +3,7 @@
   <head>
     <!-- Meta -->
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="assets/earth-icon.svg" />
+    <link rel="icon" type="image/svg+xml" href="assets/img/earth-icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Open GIS</title>
 
@@ -53,10 +53,11 @@
 
     <p>
       <img
+        class="right"
         src="https://www.morehawes.ca/assets/images/Joe1BW.jpg"
         alt="Joe Hawes"
-        width="120px"
-        height="120px"
+        width="300px"
+        height="300px"
       />
       I have been building things for the web since 1997, both for fun and to
       put food on the table. I run an eBay advertising service called
@@ -88,6 +89,11 @@
       far from financially sustainable. While I believe in the value of
       Open-Source, the project can only continue if I can figure out an income
       stream.
+    </p>
+
+    <p>
+      Understand the technology broadly, start building products that users want
+      in order to figure out how to create a sustainable business.
     </p>
 
     <!-- 
@@ -127,6 +133,12 @@
 
     <h4>Waymark</h4>
 
+    <img
+      class="right"
+      src="https://www.morehawes.ca/assets/images/home/waymark.jpg"
+      width="300px"
+    />
+
     <ul>
       <li>
         <strong>Goals</strong>: Figure out how to create and support a popular
@@ -142,6 +154,15 @@
     <p>
       An Open-Source WordPress plugin to easily create, edit and share
       meaningful Maps.
+    </p>
+
+    <p>
+      Using the popular <a href="https://leafletjs.com/">Leaflet</a> library,
+      the plugin allows users to create and edit Maps with an intuitive
+      interface. Users can add Overlays (Markers, Lines & Shapes) to their Maps
+      and style them using Types. Waymark uses
+      <a href="https://www.openstreetmap.org/">OpenStreetMap</a> as the default
+      Basemap.
     </p>
 
     <p>
@@ -185,6 +206,8 @@
 
     <h3>Waymark JS</h3>
 
+    <img class="right" src="assets/img/waymark-js-editor.jpg" width="300px" />
+
     <p>
       <a href="https://www.waymark.dev/js">Waymark JS</a> is a JavaScript
       library for creating and editing Maps. It includes a Map Editor, Viewer
@@ -209,13 +232,6 @@
         Types.
       </li>
     </ul>
-
-    <p>
-      The Editor is built with
-      <a href="https://github.com/OpenGIS/Waymark-JS">Waymark JS</a>, an Open
-      GIS project for creating and editing Maps and uses
-      <a href="https://www.openstreetmap.org/">OpenStreetMap</a> as the Basemap.
-    </p>
 
     <p>
       No account or API key is required to use the Editor and Maps are stored in
@@ -326,23 +342,11 @@
           },
         ],
       });
-
-      // After a slight delay, open the popup
-      setTimeout(() => {
-        // Iterate over the Leaflet data layer
-        viewer.map_data.eachLayer((layer) => {
-          // Open popop
-          layer.openPopup();
-        });
-      }, 1000);
     </script>
 
     <!-- Shiki Syntax Highlighting -->
     <script type="module">
-      // be sure to specify the exact version
       import { codeToHtml } from "https://esm.sh/shiki@3.0.0";
-      // or
-      // import { codeToHtml } from 'https://esm.run/shiki@3.0.0'
 
       const code = document.querySelector("code");
       code.innerHTML = await codeToHtml(code.innerText, {
