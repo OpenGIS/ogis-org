@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Meta -->
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="assets/earth-icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -150,16 +151,12 @@
     <p>
       The following Map Editor is created with a few lines of code. The Map
       state is stored in GeoJSON format, which is updated as the user interacts
-      with the Map.
-    </p>
-
-    <div id="waymark-map"></div>
-
-    <p>
-      This Map is displayed using the following JavaScript code. View the
+      with the Map. View the
       <a href="https://www.waymark.dev/js/#quick-start">Documentation</a> for
       more details.
     </p>
+
+    <div id="waymark-map"></div>
 
     <pre>
 <code>
@@ -239,6 +236,7 @@
     </ul>
 
     <!-- Scripts -->
+    <!-- Waymark JS -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://www.waymark.dev/js/dist/latest/js/waymark-js.min.js"></script>
     <script>
@@ -277,6 +275,20 @@
           layer.openPopup();
         });
       }, 1000);
+    </script>
+
+    <!-- Shiki Syntax Highlighting -->
+    <script type="module">
+      // be sure to specify the exact version
+      import { codeToHtml } from "https://esm.sh/shiki@3.0.0";
+      // or
+      // import { codeToHtml } from 'https://esm.run/shiki@3.0.0'
+
+      const code = document.querySelector("code");
+      code.innerHTML = await codeToHtml(code.innerText, {
+        lang: "js",
+        theme: "ayu-dark",
+      });
     </script>
   </body>
 </html>

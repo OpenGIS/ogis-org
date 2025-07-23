@@ -25,10 +25,6 @@ a {
 
 /* Waymark JS Example */
 
-pre {
-  background: #111;
-}
-
 #waymark-data {
   position: absolute;
   top: 15px;
