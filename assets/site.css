@@ -1,0 +1,48 @@
+body {
+  font-family: monospace;
+  color: #fff;
+  background-color: #002400;
+}
+table {
+  text-align: center;
+  font-size: 40px;
+}
+tr:first-child td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+td {
+  padding: 5px;
+  width: 36px;
+  line-height: 34px;
+}
+td:first-child {
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+a {
+  color: #00ff00;
+  text-decoration: none;
+}
+
+/* Waymark JS Example */
+
+pre {
+  background: #111;
+}
+
+#waymark-data {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 2000;
+  width: 320px;
+  height: 160px;
+  overflow: scroll;
+  pointer-events: auto !important;
+}
+
+/* Hover  */
+#waymark-data:hover {
+  width: 92%;
+  height: 90%;
+  font-size: 120%;
+}

@@ -6,32 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Open GIS</title>
 
-    <style>
-      body {
-        font-family: monospace;
-        color: #fff;
-        background-color: #002400;
-      }
-      table {
-        text-align: center;
-        font-size: 40px;
-      }
-      tr:first-child td {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-      }
-      td {
-        padding: 5px;
-        width: 36px;
-        line-height: 34px;
-      }
-      td:first-child {
-        border-right: 1px solid rgba(255, 255, 255, 0.3);
-      }
-      a {
-        color: #00ff00;
-        text-decoration: none;
-      }
-    </style>
+    <!-- Styles -->
+    <link
+      rel="stylesheet"
+      href="https://www.waymark.dev/js/dist/latest/css/waymark-js.min.css"
+    />
+    <link rel="stylesheet" href="assets/site.css" type="text/css" />
   </head>
   <body>
     <table>
@@ -112,24 +92,191 @@
 
     <h2>Progress</h2>
 
+    <h3>Waymark for WordPress</h3>
+
     <p>
-      The Open GIS project is in its early stages, with the Editor being the
-      first major component. The Editor is fully functional and ready for use.
+      An Open-Source WordPress plugin to easily create, edit and share
+      meaningful Maps.
     </p>
 
-    <p>The next stage is adding accounts and cloud storage for Maps.</p>
+    <p>
+      The plugin has approximately 1000 users, and all sorts of use-cases (from
+      dog walks to transport maps). Users can be grouped as either:
+    </p>
+
+    <ul>
+      <li><strong>Personal</strong> websites, bobbyists and bloggers</li>
+      <li>
+        <strong>Organisations</strong>:
+        <ul>
+          <li>
+            <strong>Activities</strong> (e.g.
+            hike/run/bike/kayak/skate/motorcycle)
+            <ul>
+              <li>Races/events</li>
+              <li>Clubs/groups/organisations</li>
+            </ul>
+          </li>
+          <li><strong>Trail</strong> organisations and associations</li>
+          <li>
+            <strong>Tourism</strong>
+            <ul>
+              <li>Communities (cCities/towns/villages)</li>
+              <li>Tour Guides</li>
+              <li>Travel blogs</li>
+            </ul>
+          </li>
+          <li><strong>Transport</strong> (e.g. public bus/train)</li>
+        </ul>
+      </li>
+    </ul>
+
+    <p>
+      The WordPress plugin is written in PHP and JavaScript. I released the
+      JavaScript Editor/Viewer code as a seperate Open-Source project called
+      <a href="https://www.waymark.dev/js">Waymark JS</a>, which means Waymark
+      can be used by anyone, not just WordPress users.
+    </p>
+
+    <h3>Waymark JS</h3>
+    <p>
+      <a href="https://www.waymark.dev/js">Waymark JS</a> is a JavaScript
+      library for creating and editing Maps. It includes a Map Editor, Viewer
+      and a set of Types that can be used to add meaning to Overlays.
+    </p>
+
+    <h4>Example</h4>
+
+    <p>
+      The following Map Editor is created with a few lines of code. The Map
+      state is stored in GeoJSON format, which is updated as the user interacts
+      with the Map.
+    </p>
+
+    <div id="waymark-map"></div>
+
+    <p>
+      This Map is displayed using the following JavaScript code. View the
+      <a href="https://www.waymark.dev/js/#quick-start">Documentation</a> for
+      more details.
+    </p>
+
+    <pre>
+<code>
+  // Create viewer Instance
+  const viewer = window.Waymark_Map_Factory.editor();
+
+  // Initialise with our options
+  viewer.init();
+
+  // Load GeoJSON
+  viewer.load_json({
+    type: "FeatureCollection",
+    features: [
+      {
+        type: "Feature",
+        properties: {
+          type: "beer",
+          title: "The Scarlet Ibis",
+          description:
+            "Great pub, great food! Especially after a Long Ride 🚴🍔🍟🍺🍺💤",
+          image_large_url: "https://www.waymark.dev/assets/geo/pub.jpeg",
+        },
+        geometry: {
+          type: "Point",
+          coordinates: [-128.0094, 50.6539],
+        },
+      },
+    ],
+  });
+</code>
+</pre>
+
+    <h2>Lessons so Far</h2>
+
+    <h3>Running an Open-Source Project</h3>
+
+    <p>
+      Gathering experience with <a href="https://github.com/OpenGIS">Github</a>,
+      by running a project in the open.
+    </p>
+
+    <p>
+      The next stage is creating a product or service people are willing to pay
+      for.
+    </p>
+
+    <h2>My "Master Plan"</h2>
+
+    <p>Getting paid to work "for free".</p>
+
+    <p>
+      Being creative, tackling interesting problems and building things that add
+      value for others.
+    </p>
+
+    <p>
+      So far, while I have received a lot of positive feedback, the project is
+      far from financially sustainable. While I believe in the value of
+      Open-Source, the project can only continue if I can figure out an income
+      stream.
+    </p>
 
     <h2>Links</h2>
 
     <ul>
       <li>
-        <a href="https://www.ogis.app">Open GIS Editor</a>
+        <a href="https://wordpress.org/plugins/waymark/"
+          >Waymark for WordPress</a
+        >
       </li>
 
       <li>
-        <a href="https://github.com/OpenGIS">Github</a>
+        <a href="https://www.waymark.dev/js">Waymark JS</a>
       </li>
-      <li><a href="https://www.waymark.dev/js">Waymark JS</a></li>
+      <li><a href="https://github.com/OpenGIS">Open GIS on Github</a></li>
+      <li><a href="https://www.ogis.app">Open GIS Editor</a></li>
     </ul>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://www.waymark.dev/js/dist/latest/js/waymark-js.min.js"></script>
+    <script>
+      // Create viewer Instance
+      const viewer = window.Waymark_Map_Factory.editor();
+
+      // Initialise with our options
+      viewer.init();
+
+      // Load GeoJSON
+      viewer.load_json({
+        type: "FeatureCollection",
+        features: [
+          {
+            type: "Feature",
+            properties: {
+              type: "beer",
+              title: "The Scarlet Ibis",
+              description:
+                "Great pub, great food! Especially after a Long Ride 🚴🍔🍟🍺🍺💤",
+              image_large_url: "https://www.waymark.dev/assets/geo/pub.jpeg",
+            },
+            geometry: {
+              type: "Point",
+              coordinates: [-128.0094, 50.6539],
+            },
+          },
+        ],
+      });
+
+      // After a slight delay, open the popup
+      setTimeout(() => {
+        // Iterate over the Leaflet data layer
+        viewer.map_data.eachLayer((layer) => {
+          // Open popop
+          layer.openPopup();
+        });
+      }, 1000);
+    </script>
   </body>
 </html>
