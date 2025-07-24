@@ -17,7 +17,7 @@
   <body>
     <header>
       <h1 title="Open GIS">
-        <table>
+        <table class="ogis-logo">
           <tr>
             <td>
               <img
@@ -35,11 +35,13 @@
           </tr>
         </table>
       </h1>
+
+      <div id="waymark-map"></div>
     </header>
 
     <article>
       <section>
-        <p>
+        <p class="lead">
           Open <abbr title="Geographic Information System">GIS</abbr> is a
           collection of Open-Source Mapping tools.
         </p>
@@ -59,7 +61,7 @@
       <section>
         <h2>What is Open-Source Software?</h2>
 
-        <p>
+        <p class="lead">
           Open-Source software is software that anyone can view, use, and
           modify. Including for commercial purposes.
         </p>
@@ -126,7 +128,7 @@
       <section>
         <h2>The Master Plan</h2>
 
-        <p>Getting paid to work "for free".</p>
+        <p class="lead">Getting paid to work "for free".</p>
 
         <p>
           Being creative, tackling interesting problems and building things that
@@ -278,8 +280,6 @@
           for more details.
         </p>
 
-        <div id="waymark-map"></div>
-
         <pre>
 <code>
   // Create viewer Instance
@@ -326,7 +326,9 @@
           The next stage is creating a product or service people are willing to
           pay for.
         </p>
+      </section>
 
+      <footer>
         <h2>Links</h2>
 
         <ul>
@@ -352,7 +354,7 @@
             >
           </li>
         </ul>
-      </section>
+      </footer>
     </article>
 
     <!-- Scripts -->
@@ -361,31 +363,29 @@
     <script src="https://www.waymark.dev/js/dist/latest/js/waymark-js.min.js"></script>
     <script>
       // Create viewer Instance
-      const viewer = window.Waymark_Map_Factory.editor();
+      const viewer = window.Waymark_Map_Factory.viewer();
+
+      // Random country
+      const bounds = viewer.country_code_to_bounds();
+      // viewer.map.fitBounds(bounds, {
+      //   padding: [50, 50],
+      // });
+      const centre = bounds.getCenter();
 
       // Initialise with our options
-      viewer.init();
+      viewer.init({
+        map_options: {
+          map_height: 160,
 
-      // Load GeoJSON
-      viewer.load_json({
-        type: "FeatureCollection",
-        features: [
-          {
-            type: "Feature",
-            properties: {
-              type: "beer",
-              title: "The Scarlet Ibis",
-              description:
-                "Great pub, great food! Especially after a Long Ride 🚴🍔🍟🍺🍺💤",
-              image_large_url: "https://www.waymark.dev/assets/geo/pub.jpeg",
-            },
-            geometry: {
-              type: "Point",
-              coordinates: [-128.0094, 50.6539],
-            },
-          },
-        ],
+          // Initial Map Zoom
+          map_init_zoom: 8,
+
+          // Initial Map Centre (Stonehenge)
+          map_init_latlng: centre,
+        },
       });
+
+      // Random country
     </script>
 
     <!-- Shiki Syntax Highlighting -->
