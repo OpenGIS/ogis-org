@@ -91,7 +91,7 @@
           creativity of the global community.
         </p>
 
-        <p style="color: red">Paying back... Larger companies...</p>
+        <!-- <p style="color: red">Paying back... Larger companies...</p> -->
       </section>
 
       <section>
@@ -229,15 +229,20 @@
         </p>
 
         <!-- START Columns -->
-        <div class="columns">
+        <div
+          class="columns"
+          style="border-top: 1px solid rgba(255, 255, 255, 0.5)"
+        >
           <div class="column">
-            <h3>Waymark JS</h3>
+            <h3><a href="https://www.waymark.dev/js">Waymark JS</a></h3>
 
             <p class="lead">
-              <a href="https://www.waymark.dev/js">Waymark JS</a> is a
-              JavaScript library for creating and editing Maps. It includes a
-              Map Editor, Viewer and a set of Types that can be used to add
-              meaning to Overlays.
+              A JavaScript library for creating and editing Maps.
+            </p>
+
+            <p>
+              It includes a Map Editor, Viewer and a set of Types that can be
+              used to add meaning to Overlays.
             </p>
 
             <img
@@ -271,49 +276,6 @@
               No account or API key is required to use the Editor and Maps are
               stored in your browser's local storage.
             </p>
-
-            <h4>Example</h4>
-
-            <p>
-              The following Map Editor is created with a few lines of code. The
-              Map state is stored in GeoJSON format, which is updated as the
-              user interacts with the Map. View the
-              <a href="https://www.waymark.dev/js/#quick-start"
-                >Documentation</a
-              >
-              for more details.
-            </p>
-
-            <!--             <pre>
-<code>
-  // Create viewer Instance
-  const viewer = window.Waymark_Map_Factory.editor();
-
-  // Initialise with our options
-  viewer.init();
-
-  // Load GeoJSON
-  viewer.load_json({
-    type: "FeatureCollection",
-    features: [
-      {
-        type: "Feature",
-        properties: {
-          type: "beer",
-          title: "The Scarlet Ibis",
-          description:
-            "Great pub, great food! Especially after a Long Ride 🚴🍔🍟🍺🍺💤",
-          image_large_url: "https://www.waymark.dev/assets/geo/pub.jpeg",
-        },
-        geometry: {
-          type: "Point",
-          coordinates: [-128.0094, 50.6539],
-        },
-      },
-    ],
-  });
-</code>
-</pre> -->
           </div>
 
           <div class="column">
@@ -326,19 +288,15 @@
                 <abbr title="Geographic Information System">GIS</abbr> Editor</a
               >
               is a web-based Map Editor that uses Waymark JS to create and edit
-              Maps. It allows users to create and share Maps without needing to
-              install any software.
+              Maps. It runs in the browser and allows users to create and share
+              Maps without needing to install any software.
             </p>
 
             <p>
-              The Editor is designed to be easy to use, with a simple interface
-              that allows users to create and edit Maps quickly. It supports
-              various data formats, including GPX, KML, and GeoJSON.
-            </p>
-
-            <p>
-              The Editor is currently in development, but it is already being
-              used by a small group of users.
+              <a href="https://github.com/OpenGIS/Inreach-Mapshare"
+                >inReach MapShare</a
+              >
+              is a WordPress plugin to display your live inReach MapShare Data.
             </p>
           </div>
         </div>
@@ -398,13 +356,6 @@
       // Create viewer Instance
       const viewer = window.Waymark_Map_Factory.viewer();
 
-      // Random country
-      const bounds = viewer.country_code_to_bounds();
-      // viewer.map.fitBounds(bounds, {
-      //   padding: [50, 50],
-      // });
-      const centre = bounds.getCenter();
-
       // Initialise with our options
       viewer.init({
         map_options: {
@@ -414,11 +365,9 @@
           map_init_zoom: 8,
 
           // Initial Map Centre (Stonehenge)
-          map_init_latlng: centre,
+          map_init_latlng: viewer.country_code_to_bounds().getCenter(),
         },
       });
-
-      // Random country
     </script>
 
     <!-- Shiki Syntax Highlighting -->
