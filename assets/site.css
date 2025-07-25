@@ -17,9 +17,15 @@ p.lead {
   font-size: 130%;
 }
 
-img.right {
-  float: right;
-  padding: 0 0 15px 15px;
+img {
+  display: block;
+  padding: 15px 15px 15px 0;
+}
+@media (min-width: 480px) {
+  img.right {
+    float: right;
+    padding: 0 0 15px 15px;
+  }
 }
 
 /* Columns */
