@@ -17,12 +17,12 @@ p.lead {
   font-size: 130%;
 }
 
-img {
+main img {
   display: block;
   padding: 15px 15px 15px 0;
 }
 @media (min-width: 480px) {
-  img.right {
+  main img.right {
     float: right;
     padding: 0 0 15px 15px;
   }
