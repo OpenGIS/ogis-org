@@ -12,7 +12,8 @@
       rel="stylesheet"
       href="https://www.waymark.dev/js/dist/latest/css/waymark-js.min.css"
     />
-    <link rel="stylesheet" href="assets/site.css" type="text/css" />
+
+    <script type="module" src="/src/main.js"></script>
   </head>
   <body>
     <article>
@@ -22,7 +23,7 @@
             <tr>
               <td>
                 <img
-                  src="assets/img/earth-icon.svg"
+                  src="/assets/img/earth-icon.svg"
                   width="30px"
                   height="30px"
                   alt="O"
@@ -57,19 +58,15 @@
 
           <p>Jump to a project:</p>
 
-                       <ul>
-          <li>
-            <a href="#waymark"
-              >Waymark for WordPress</a
-            >
-          </li>
+          <ul>
+            <li>
+              <a href="#waymark">Waymark for WordPress</a>
+            </li>
 
-          <li>
-            <a href="#waymark-js">Waymark JS</a>
-          </li>
-
-        </ul>
-
+            <li>
+              <a href="#waymark-js">Waymark JS</a>
+            </li>
+          </ul>
         </section>
 
         <section>
@@ -275,7 +272,9 @@
             style="border-top: 1px solid rgba(255, 255, 255, 0.5)"
           >
             <div class="column">
-              <h3 id="waymark-js"><a href="https://www.waymark.dev/js">Waymark JS</a></h3>
+              <h3 id="waymark-js">
+                <a href="https://www.waymark.dev/js">Waymark JS</a>
+              </h3>
 
               <p class="lead">
                 A JavaScript library for creating and editing Maps.
@@ -288,7 +287,7 @@
 
               <img
                 class="right"
-                src="assets/img/waymark-js-editor.jpg"
+                src="/assets/img/waymark-js-editor.jpg"
                 width="240px"
               />
 
@@ -368,7 +367,7 @@
           </div>
           <!-- END Columns -->
         </section>
-        
+
         <section>
           <h2>Lessons so Far</h2>
 
