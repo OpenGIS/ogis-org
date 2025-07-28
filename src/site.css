@@ -52,11 +52,11 @@ main img {
   }
 }
 /* iPad Landscape - 3 columns */
-@media (min-width: 901px) {
+/*@media (min-width: 901px) {
   .columns .column {
     width: 33.33%;
   }
-}
+}*/
 
 /* Logo */
 .ogis-logo {
