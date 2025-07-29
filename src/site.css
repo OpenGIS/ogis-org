@@ -17,6 +17,7 @@ p.lead {
   font-size: 130%;
 }
 
+/* Main  */
 main img {
   display: block;
   padding: 15px 15px 15px 0;
@@ -26,6 +27,9 @@ main img {
     float: right;
     padding: 0 0 15px 15px;
   }
+}
+main ul li {
+  margin: 5px 0;
 }
 
 /* Columns */
