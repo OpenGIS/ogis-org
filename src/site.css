@@ -33,6 +33,12 @@ main ul li {
 }
 
 /* Columns */
+
+.column {
+  border-bottom: 1px solid #fff;
+}
+
+/*
 .columns {
   display: flex;
   flex-wrap: wrap;
@@ -42,19 +48,23 @@ main ul li {
   padding: 15px 15px 0 0;
   box-sizing: border-box;
 }
+*/
 /* Phone - 1 column */
+/*
 @media (max-width: 600px) {
   .columns .column {
     width: 100%;
   }
 }
-
+*/
 /* iPad Portrait - 2 columns */
+/*
 @media (min-width: 601px) {
   .columns .column {
     width: 50%;
   }
 }
+*/
 /* iPad Landscape - 3 columns */
 /*@media (min-width: 901px) {
   .columns .column {
@@ -131,4 +141,11 @@ footer ul {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+#progress .item {
+  width: 100%;
+  border: 1px solid red;
+  /* Self clear  */
+  display: inline-block;
 }
