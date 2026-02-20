@@ -1,3 +1,3 @@
-import "./site.css";
+import "./site.less";
 
 console.log("Hello, world!");
