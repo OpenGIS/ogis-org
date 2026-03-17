@@ -3,7 +3,11 @@
   <head>
     <!-- Meta -->
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="assets/img/earth-icon.svg" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="./dist/assets/img/earth-icon.svg"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Open GIS</title>
 
@@ -19,17 +23,23 @@
       }
     </style>
 
-    <script type="module" src="/src/main.js"></script>
+    <link rel="stylesheet" href="./dist/site.css" />
+
+    <!-- Scripts -->
+    <!-- Waymark JS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://www.waymark.dev/js/dist/latest/js/waymark-js.min.js"></script>
+    <script src="./dist/site.js"></script>
   </head>
   <body>
     <article id="container">
-      <header>
+      <header id="header">
         <h1 title="Open GIS">
           <table class="ogis-logo">
             <tr>
               <td>
                 <img
-                  src="/assets/img/earth-icon.svg"
+                  src="./dist/assets/img/earth-icon.svg"
                   width="30px"
                   height="30px"
                   alt="O"
@@ -43,8 +53,6 @@
             </tr>
           </table>
         </h1>
-
-        <div id="waymark-map"></div>
       </header>
 
       <main>
@@ -202,7 +210,7 @@
 
                 <img
                   class="right"
-                  src="/assets/img/home/bighikesyosemite.png"
+                  src="./dist/assets/img/home/bighikesyosemite.png"
                   width="360px"
                 />
 
@@ -250,7 +258,7 @@
 
                 <img
                   class="right"
-                  src="/assets/img/home/cumberland-trails.jpg"
+                  src="./dist/assets/img/home/cumberland-trails.jpg"
                   width="360px"
                 />
 
@@ -389,7 +397,7 @@
 
                 <img
                   class="right"
-                  src="/assets/img/home/comox-valley-trails.jpg"
+                  src="./dist/assets/img/home/comox-valley-trails.jpg"
                   width="360px"
                 />
 
@@ -451,7 +459,7 @@
 
                 <img
                   class="right"
-                  src="/assets/img/home/inreach-mapshare-arizona.jpg"
+                  src="./dist/assets/img/home/inreach-mapshare-arizona.jpg"
                   width="360px"
                 />
 
@@ -576,7 +584,7 @@
 
                 <img
                   class="right"
-                  src="/assets/img/home/waymark-js-editor.jpg"
+                  src="./dist/assets/img/home/waymark-js-editor.jpg"
                   width="360px"
                 />
 
@@ -650,7 +658,7 @@
 
                 <img
                   class="right"
-                  src="/assets/img/home/ogis-app-screenshot.jpg"
+                  src="./dist/assets/img/home/ogis-app-screenshot.jpg"
                   width="360px"
                 />
 
@@ -711,7 +719,7 @@
 
                 <img
                   class="right"
-                  src="/assets/img/home/osm-highlights-screenshot.jpg"
+                  src="./dist/assets/img/home/osm-highlights-screenshot.jpg"
                   width="360px"
                 />
 
@@ -816,37 +824,6 @@
         </ul>
       </footer>
     </article>
-
-    <!-- Scripts -->
-    <!-- Waymark JS -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://www.waymark.dev/js/dist/latest/js/waymark-js.min.js"></script>
-    <script>
-      // Create viewer Instance
-      const viewer = window.Waymark_Map_Factory.viewer();
-
-      // Initialise with our options
-      viewer.init({
-        map_options: {
-          tile_layers: [
-            {
-              layer_name: "OpenStreetMap",
-              layer_url: "https://tiles.waymark.dev/osm/{z}/{x}/{y}.png",
-              layer_attribution:
-                '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-              layer_max_zoom: "17",
-            },
-          ],
-          map_height: 160,
-
-          // Initial Map Zoom
-          map_init_zoom: 8,
-
-          // Initial Map Centre (Stonehenge)
-          map_init_latlng: viewer.country_code_to_bounds().getCenter(),
-        },
-      });
-    </script>
 
     <!-- Shiki Syntax Highlighting -->
     <!--     <script type="module">
