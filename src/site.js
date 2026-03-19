@@ -19,7 +19,7 @@ window.addEventListener("load", () => {
       tile_layers: [
         {
           layer_name: "OpenStreetMap",
-          layer_url: "https://tiles.waymark.dev/osm/{z}/{x}/{y}.png",
+          layer_url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?r=1",
           layer_attribution:
             '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
           layer_max_zoom: "17",
