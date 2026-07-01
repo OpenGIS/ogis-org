@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MapLibre Contour Lines Demo</title>
+
+    <title>OFM Topo</title>
+
     <script src="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js"></script>
     <link
       href="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css"
@@ -42,12 +44,12 @@
         // center: [10.52302507, 55.0952585],
 
         // Cumberland mtb:scale:imba example:
-        // center: [-125.022417, 49.607406],
+        center: [-125.022417, 49.607406],
 
         // Pove del Grappa 45.821142,11.7373742
-        center: [11.7373742, 45.824042],
+        // center: [11.7373742, 45.824042],
 
-        zoom: 12.3,
+        zoom: 12,
         pitch: 0,
         bearing: 0,
       });
@@ -55,12 +57,12 @@
       map.on("style.load", () => {
         // === Terrain & hillshade ===
         map.addSource("terrainSource", terrainSource);
+
         map.setTerrain({
           source: "terrainSource",
           exaggeration: 1.5,
         });
 
-        // Subtle hillshade — restrained to match liberty-topo's subtlety; contour lines should remain legible
         map.addLayer({
           id: "hillshade-layer",
           type: "hillshade",
@@ -204,28 +206,41 @@
           },
         });
 
-        // === Path/track highlighting — override liberty's white dashed paths to redish brown for better visibility ===
+        // === Path/track highlighting ===
+        // Philosophy: if the tile has trail data, display it. No zoom filtering,
+        // no fade-in — loud and proud at all zoom levels.
+        //
+        // OpenMapTiles includes path data in tiles from z12 (route members),
+        // z13 (named/routed/sac_scale), and z14+ (all paths).
+        // Ref: https://github.com/openmaptiles/openmaptiles/pull/1190
+        //      https://github.com/openmaptiles/openmaptiles/pull/1334
         if (map.getLayer("road_path_pedestrian")) {
-          map.setPaintProperty("road_path_pedestrian", "line-color", "#9d4d26");
+          map.setLayerZoomRange("road_path_pedestrian", 0, 22);
+          map.setPaintProperty("road_path_pedestrian", "line-color", "#c05a2a");
+          map.setPaintProperty("road_path_pedestrian", "line-opacity", 1);
+          map.setPaintProperty("road_path_pedestrian", "line-width", [
+            "interpolate",
+            ["exponential", 1.2],
+            ["zoom"],
+            12,
+            1.5,
+            14,
+            3,
+            20,
+            12,
+          ]);
         }
 
-        // Tunnel paths
-        if (map.getLayer("tunnel_path_pedestrian")) {
-          map.setPaintProperty(
-            "tunnel_path_pedestrian",
-            "line-color",
-            "#9d4d26",
-          );
+        // Trail name labels — same philosophy: show them wherever data exists
+        if (map.getLayer("highway-name-path")) {
+          map.setLayerZoomRange("highway-name-path", 0, 22);
+          map.setPaintProperty("highway-name-path", "text-color", "#c05a2a");
+          map.setPaintProperty("highway-name-path", "text-halo-color", "#ffffff");
+          map.setPaintProperty("highway-name-path", "text-halo-width", 1.5);
         }
 
-        // Bridge paths
-        if (map.getLayer("bridge_path_pedestrian")) {
-          map.setPaintProperty(
-            "bridge_path_pedestrian",
-            "line-color",
-            "#9d4d26",
-          );
-        }
+        // Note: tunnel/bridge path variants, poi, building extrusions etc.
+        // are omitted — this is a minimal example, not exhaustive.
       });
     </script>
   </body>
