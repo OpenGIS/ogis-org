@@ -42,255 +42,262 @@
         maxzoom: 15,
       };
 
-      const map = new maplibregl.Map({
-        container: "map",
+      // Fetch the base style so we can modify it before passing to MapLibre
+      const styleUrl = "https://tiles.openfreemap.org/styles/liberty";
 
-        // 🙇 https://openfreemap.org/
-        style: "https://tiles.openfreemap.org/styles/liberty",
+      fetch(styleUrl)
+        .then((r) => r.json())
+        .then((style) => {
+          // ── Modify style here if needed ──
 
-        // Cumberland mtb:scale:imba example... not supported
-        center: [-125.022417, 49.607406],
+          const map = new maplibregl.Map({
+            container: "map",
+            style: style,
 
-        // Pove del Grappa 45.821142,11.7373742
-        //center: [11.7373742, 45.824042],
+            // Cumberland mtb:scale:imba example... not supported
+            center: [-125.022417, 49.607406],
 
-        zoom: 12,
-      });
+            // Pove del Grappa 45.821142,11.7373742
+            //center: [11.7373742, 45.824042],
 
-      map.on("style.load", () => {
-        // === Terrain & hillshade ===
-        map.addSource("terrainSource", terrainSource);
+            zoom: 12,
+          });
 
-        map.setTerrain({
-          source: "terrainSource",
-          exaggeration: 1.5,
-        });
-
-        map.addLayer({
-          id: "hillshade-layer",
-          type: "hillshade",
-          source: "terrainSource",
-          paint: {
-            "hillshade-exaggeration": 0.2,
-          },
-        });
-
-        // === Contours ===
-
-        const demSource = new mlcontour.DemSource({
-          url: TERRARIUM_URL,
-          encoding: "terrarium",
-          maxzoom: 13,
-          worker: true,
-        });
-        demSource.setupMaplibre(maplibregl);
-        map.addSource("contour-source", {
-          type: "vector",
-          minzoom: 10,
-          tiles: [
-            demSource.contourProtocolUrl({
-              thresholds: {
-                0: [100, 500],
-                5: [50, 250],
-                10: [25, 100],
-                15: [25, 100],
-              },
-              contourLayer: "contours",
-              elevationKey: "ele",
-              levelKey: "level",
-              extent: 4096,
-              buffer: 1,
-            }),
-          ],
-          maxzoom: 15,
-        });
-
-        // Regular contour lines — subtle warm grey, low opacity (matching liberty-topo restraint)
-        map.addLayer({
-          id: "contour-lines",
-          type: "line",
-          source: "contour-source",
-          "source-layer": "contours",
-          minzoom: 10,
-          filter: ["==", ["get", "level"], 0],
-          paint: {
-            "line-color": "rgb(126, 124, 121)",
-            "line-opacity": 0.25,
-            "line-width": 0.5,
-          },
-        });
-
-        // Index contour lines (every Nth) — slightly wider, but still restrained (matching liberty-topo)
-        map.addLayer({
-          id: "contour-lines-index",
-          type: "line",
-          source: "contour-source",
-          "source-layer": "contours",
-          minzoom: 10,
-          filter: [">", ["get", "level"], 0],
-          paint: {
-            "line-color": "rgb(124, 122, 121)",
-            "line-opacity": 0.1,
-            "line-width": 1.0,
-          },
-        });
-
-        // Contour elevation labels — only on index lines, map-aligned, small and restrained (matching liberty-topo)
-        map.addLayer({
-          id: "contour-labels",
-          type: "symbol",
-          source: "contour-source",
-          "source-layer": "contours",
-          minzoom: 11,
-          filter: [">", ["get", "level"], 0],
-          layout: {
-            "symbol-placement": "line",
-            "symbol-avoid-edges": true,
-            "text-rotation-alignment": "map",
-            "text-size": ["interpolate", ["linear"], ["zoom"], 11, 6, 18, 10],
-            "text-field": [
-              "concat",
-              ["number-format", ["get", "ele"], {}],
-              "m",
-            ],
-            "text-font": ["Noto Sans Regular"],
-            "text-padding": 0,
-          },
-          paint: {
-            "text-color": "#5c5c5c",
-            "text-halo-color": "rgba(255, 255, 255, 0.85)",
-            "text-halo-width": 1.25,
-          },
-        });
-
-        // === MTB trail example (using mtb_scale)  ===
-        // Placed above road layers but below POI icons/labels via beforeId (2nd arg)
-        // https://github.com/hyperknot/openfreemap/issues/31#issuecomment-4649028862
-        // Not exhaustive, e.g. mtb:scale=imba is not included
-        // https://wiki.openstreetmap.org/wiki/Key:mtb:scale:imba
-        //
-        // Activity layers use minzoom: 0 + setLayerZoomRange(0, 22) so they render
-        // at every zoom where the tag data exists in the tile — no artificial
-        // zoom gating. If the tile has it, we show it.
-        map.addLayer(
-          {
-            id: "mtb_scale-casing",
-            type: "line",
-            metadata: {
-              "mapbox:group": "1444849345966.4436",
+          map.on("style.load", () => {
+          // === Terrain & hillshade ===
+          map.addSource("terrainSource", terrainSource);
+  
+          map.setTerrain({
+            source: "terrainSource",
+            exaggeration: 1.5,
+          });
+  
+          map.addLayer({
+            id: "hillshade-layer",
+            type: "hillshade",
+            source: "terrainSource",
+            paint: {
+              "hillshade-exaggeration": 0.2,
             },
-            source: "openmaptiles",
-            "source-layer": "transportation",
-            minzoom: 0, // no minimum zoom — data availability determines visibility
-            filter: [
-              "all",
-              ["==", "$type", "LineString"],
-              ["!=", "brunnel", "tunnel"],
-              ["has", "mtb_scale"],
+          });
+  
+          // === Contours ===
+  
+          const demSource = new mlcontour.DemSource({
+            url: TERRARIUM_URL,
+            encoding: "terrarium",
+            maxzoom: 13,
+            worker: true,
+          });
+          demSource.setupMaplibre(maplibregl);
+          map.addSource("contour-source", {
+            type: "vector",
+            minzoom: 10,
+            tiles: [
+              demSource.contourProtocolUrl({
+                thresholds: {
+                  0: [100, 500],
+                  5: [50, 250],
+                  10: [25, 100],
+                  15: [25, 100],
+                },
+                contourLayer: "contours",
+                elevationKey: "ele",
+                levelKey: "level",
+                extent: 4096,
+                buffer: 1,
+              }),
             ],
+            maxzoom: 15,
+          });
+  
+          // Regular contour lines — subtle warm grey, low opacity (matching liberty-topo restraint)
+          map.addLayer({
+            id: "contour-lines",
+            type: "line",
+            source: "contour-source",
+            "source-layer": "contours",
+            minzoom: 10,
+            filter: ["==", ["get", "level"], 0],
+            paint: {
+              "line-color": "rgb(126, 124, 121)",
+              "line-opacity": 0.25,
+              "line-width": 0.5,
+            },
+          });
+  
+          // Index contour lines (every Nth) — slightly wider, but still restrained (matching liberty-topo)
+          map.addLayer({
+            id: "contour-lines-index",
+            type: "line",
+            source: "contour-source",
+            "source-layer": "contours",
+            minzoom: 10,
+            filter: [">", ["get", "level"], 0],
+            paint: {
+              "line-color": "rgb(124, 122, 121)",
+              "line-opacity": 0.1,
+              "line-width": 1.0,
+            },
+          });
+  
+          // Contour elevation labels — only on index lines, map-aligned, small and restrained (matching liberty-topo)
+          map.addLayer({
+            id: "contour-labels",
+            type: "symbol",
+            source: "contour-source",
+            "source-layer": "contours",
+            minzoom: 11,
+            filter: [">", ["get", "level"], 0],
             layout: {
-              "line-cap": "round",
-              "line-join": "round",
+              "symbol-placement": "line",
+              "symbol-avoid-edges": true,
+              "text-rotation-alignment": "map",
+              "text-size": ["interpolate", ["linear"], ["zoom"], 11, 6, 18, 10],
+              "text-field": [
+                "concat",
+                ["number-format", ["get", "ele"], {}],
+                "m",
+              ],
+              "text-font": ["Noto Sans Regular"],
+              "text-padding": 0,
             },
             paint: {
-              "line-color": [
-                "match",
-                ["get", "mtb_scale"],
-                "1",
-                "blue",
-                "2",
-                "red",
-                "black",
+              "text-color": "#5c5c5c",
+              "text-halo-color": "rgba(255, 255, 255, 0.85)",
+              "text-halo-width": 1.25,
+            },
+          });
+  
+          // === MTB trail example (using mtb_scale)  ===
+          // Placed above road layers but below POI icons/labels via beforeId (2nd arg)
+          // https://github.com/hyperknot/openfreemap/issues/31#issuecomment-4649028862
+          // Not exhaustive, e.g. mtb:scale=imba is not included
+          // https://wiki.openstreetmap.org/wiki/Key:mtb:scale:imba
+          //
+          // Activity layers use minzoom: 0 + setLayerZoomRange(0, 22) so they render
+          // at every zoom where the tag data exists in the tile — no artificial
+          // zoom gating. If the tile has it, we show it.
+          map.addLayer(
+            {
+              id: "mtb_scale-casing",
+              type: "line",
+              metadata: {
+                "mapbox:group": "1444849345966.4436",
+              },
+              source: "openmaptiles",
+              "source-layer": "transportation",
+              minzoom: 0, // no minimum zoom — data availability determines visibility
+              filter: [
+                "all",
+                ["==", "$type", "LineString"],
+                ["!=", "brunnel", "tunnel"],
+                ["has", "mtb_scale"],
               ],
-              "line-opacity": 0.8,
-              "line-width": {
-                base: 1.2,
-                stops: [
-                  [12, 0.5],
-                  [16, 3],
+              layout: {
+                "line-cap": "round",
+                "line-join": "round",
+              },
+              paint: {
+                "line-color": [
+                  "match",
+                  ["get", "mtb_scale"],
+                  "1",
+                  "blue",
+                  "2",
+                  "red",
+                  "black",
                 ],
+                "line-opacity": 0.8,
+                "line-width": {
+                  base: 1.2,
+                  stops: [
+                    [12, 0.5],
+                    [16, 3],
+                  ],
+                },
               },
             },
-          },
-          "poi_r20",
-        );
-        map.setLayerZoomRange("mtb_scale-casing", 0, 22); // visible at all zooms — tile data decides
-
-        // === Bicycle access ===
-        // A single bold grey line for any trail tagged with bicycle=*
-        // (designated, yes, permissive, etc.). Roads excluded — bicycle
-        // tags are common on roads too, but this example spotlights trails.
-        // Excludes path-class features (already styled by road_path_pedestrian)
-        // so only tracks get the green overlay.
-        // https://wiki.openstreetmap.org/wiki/Key:bicycle
-        map.addLayer(
-          {
-            id: "bicycle-access",
-            type: "line",
-            source: "openmaptiles",
-            "source-layer": "transportation",
-            minzoom: 0, // no minimum zoom — data availability determines visibility
-            filter: [
-              "all",
-              ["==", "$type", "LineString"],
-              ["!=", "brunnel", "tunnel"],
-              ["has", "bicycle"],
-              ["in", "class", "track"],
-            ],
-            paint: {
-              "line-color": "#6c6b6a",
-              "line-opacity": 0.7,
-              "line-width": 2,
+            "poi_r20",
+          );
+          map.setLayerZoomRange("mtb_scale-casing", 0, 22); // visible at all zooms — tile data decides
+  
+          // === Bicycle access ===
+          // A single bold grey line for any trail tagged with bicycle=*
+          // (designated, yes, permissive, etc.). Roads excluded — bicycle
+          // tags are common on roads too, but this example spotlights trails.
+          // Excludes path-class features (already styled by road_path_pedestrian)
+          // so only tracks get the green overlay.
+          // https://wiki.openstreetmap.org/wiki/Key:bicycle
+          map.addLayer(
+            {
+              id: "bicycle-access",
+              type: "line",
+              source: "openmaptiles",
+              "source-layer": "transportation",
+              minzoom: 0, // no minimum zoom — data availability determines visibility
+              filter: [
+                "all",
+                ["==", "$type", "LineString"],
+                ["!=", "brunnel", "tunnel"],
+                ["has", "bicycle"],
+                ["in", "class", "track"],
+              ],
+              paint: {
+                "line-color": "#6c6b6a",
+                "line-opacity": 0.7,
+                "line-width": 2,
+              },
             },
-          },
-          "poi_r20",
-        );
-        map.setLayerZoomRange("bicycle-access", 0, 22);
-
-        // === Path/track highlighting ===
-
-        // Philosophy: if the tile has trail data, display it. No zoom filtering,
-        // no fade-in — loud and proud at all zoom levels.
-        //
-        // OpenMapTiles includes path data in tiles from z12 (route members),
-        // z13 (named/routed/sac_scale), and z14+ (all paths).
-        // Ref: https://github.com/openmaptiles/openmaptiles/pull/1190
-        //      https://github.com/openmaptiles/openmaptiles/pull/1334
-        if (map.getLayer("road_path_pedestrian")) {
-          map.setLayerZoomRange("road_path_pedestrian", 0, 22);
-          map.setPaintProperty("road_path_pedestrian", "line-color", "#c05a2a");
-          map.setPaintProperty("road_path_pedestrian", "line-opacity", 1);
-          map.setPaintProperty("road_path_pedestrian", "line-width", [
-            "interpolate",
-            ["exponential", 1.2],
-            ["zoom"],
-            12,
-            1,
-            14,
-            2,
-            20,
-            8,
-          ]);
-
-          // Hide Path/track highlighting on features with mtb_scale
-          map.setPaintProperty("road_path_pedestrian", "line-opacity", [
-            "case",
-            ["has", "mtb_scale"],
-            0,
-            1,
-          ]);
-        }
-
-        // Path name labels — style the base highway-name-path layer.
-        // Uses the transportation_name source-layer which has 'name'
-        if (map.getLayer("highway-name-path")) {
-          map.setLayerZoomRange("highway-name-path", 0, 22);
-          map.setPaintProperty("highway-name-path", "text-color", "#c05a2a");
-        }
-
-        // Note: tunnel/bridge path variants, poi, building extrusions etc.
-        // are omitted — this is a minimal example, not exhaustive.
-      });
+            "poi_r20",
+          );
+          map.setLayerZoomRange("bicycle-access", 0, 22);
+  
+          // === Path/track highlighting ===
+  
+          // Philosophy: if the tile has trail data, display it. No zoom filtering,
+          // no fade-in — loud and proud at all zoom levels.
+          //
+          // OpenMapTiles includes path data in tiles from z12 (route members),
+          // z13 (named/routed/sac_scale), and z14+ (all paths).
+          // Ref: https://github.com/openmaptiles/openmaptiles/pull/1190
+          //      https://github.com/openmaptiles/openmaptiles/pull/1334
+          if (map.getLayer("road_path_pedestrian")) {
+            map.setLayerZoomRange("road_path_pedestrian", 0, 22);
+            map.setPaintProperty("road_path_pedestrian", "line-color", "#c05a2a");
+            map.setPaintProperty("road_path_pedestrian", "line-opacity", 1);
+            map.setPaintProperty("road_path_pedestrian", "line-width", [
+              "interpolate",
+              ["exponential", 1.2],
+              ["zoom"],
+              12,
+              1,
+              14,
+              2,
+              20,
+              8,
+            ]);
+  
+            // Hide Path/track highlighting on features with mtb_scale
+            map.setPaintProperty("road_path_pedestrian", "line-opacity", [
+              "case",
+              ["has", "mtb_scale"],
+              0,
+              1,
+            ]);
+          }
+  
+          // Path name labels — style the base highway-name-path layer.
+          // Uses the transportation_name source-layer which has 'name'
+          if (map.getLayer("highway-name-path")) {
+            map.setLayerZoomRange("highway-name-path", 0, 22);
+            map.setPaintProperty("highway-name-path", "text-color", "#c05a2a");
+          }
+  
+          // Note: tunnel/bridge path variants, poi, building extrusions etc.
+          // are omitted — this is a minimal example, not exhaustive.
+          });
+        });
     </script>
   </body>
 </html>
