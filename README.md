@@ -1,1 +1,1 @@
-[ogis.org](https://www.ogis.org)
+[![ogis.org](SCREENSHOT.png)](https://www.ogis.org)
