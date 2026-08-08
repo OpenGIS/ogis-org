@@ -1,84 +1,4 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: monospace;
-  color: #eee;
-  font-size: 110%;
-  background-color: #001000;
-}
-
-/* Global  */
-a {
-  color: #0dd70d !important;
-  text-decoration: none;
-  border-bottom: 1px dotted #0dd70d;
-}
-
-p.lead {
-  font-size: 130%;
-}
-
-/* Main  */
-main {
-  img {
-    max-width: 100%;
-
-    display: block;
-    padding: 15px 15px 15px 0;
-
-    &.right {
-      @media (min-width: 480px) {
-        float: right;
-        padding: 0 0 15px 15px;
-      }
-    }
-  }
-
-  ul li {
-    margin: 5px 0;
-    overflow-wrap: break-word;
-  }
-}
-
-/* Columns */
-
-.column {
-  border-bottom: 1px solid #fff;
-}
-
-/*
-.columns {
-  display: flex;
-  flex-wrap: wrap;
-}
-.columns .column {
-  flex: 1 1 auto;
-  padding: 15px 15px 0 0;
-  box-sizing: border-box;
-}
-*/
-/* Phone - 1 column */
-/*
-@media (max-width: 600px) {
-  .columns .column {
-    width: 100%;
-  }
-}
-*/
-/* iPad Portrait - 2 columns */
-/*
-@media (min-width: 601px) {
-  .columns .column {
-    width: 50%;
-  }
-}
-*/
-/* iPad Landscape - 3 columns */
-/*@media (min-width: 901px) {
-  .columns .column {
-    width: 33.33%;
-  }
-}*/
+@import "../base/base.less";
 
 /* Logo */
 .ogis-logo {
@@ -102,66 +22,41 @@ main {
 }
 
 /* Header */
-#container {
-  margin: 0 auto;
-  max-width: 1024px;
-  & > header {
-    position: relative;
+#header {
+  position: relative;
+  width: 100%;
+  height: 160px;
+
+  #waymark-map {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 160px;
+    height: 100%;
+    min-height: unset;
 
-    #waymark-map {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      min-height: unset;
-
-      .leaflet-map-pane {
-        filter: invert(100%);
-      }
-
-      .leaflet-control {
-        display: none;
-      }
-
-      .leaflet-control-attribution {
-        display: block;
-        color: #fff;
-        background: transparent;
-      }
+    .leaflet-map-pane {
+      filter: invert(100%);
     }
 
-    h1 {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      padding: 0;
-      margin: 0;
-      z-index: 3000;
+    .leaflet-control {
+      display: none;
+    }
+
+    .leaflet-control-attribution {
+      display: block;
+      color: #fff;
+      background: transparent;
     }
   }
-}
 
-/* Article */
-section {
-  padding: 15px;
-
-  &:nth-child(odd) {
-    background-color: #002400;
-  }
-}
-
-/* Footer */
-footer {
-  padding: 15px;
-  background-color: #111;
-
-  ul {
-    list-style: none;
+  h1 {
+    position: absolute;
+    top: 15px;
+    left: 15px;
     padding: 0;
     margin: 0;
+    z-index: 3000;
   }
 }
 
@@ -169,7 +64,6 @@ footer {
 #progress {
   .items {
     border-top: 1px solid #eee;
-
     padding-top: 20px;
 
     article {
